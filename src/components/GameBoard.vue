@@ -20,7 +20,7 @@ export default {
   watch: {},
   methods: {
     initialize() {
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         this.createNewBoard();
         resolve();
       }).then(() => {
