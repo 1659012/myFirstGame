@@ -20,6 +20,15 @@ export default {
   watch: {},
   methods: {
     initialize() {
+      new Promise((resolve, reject) => {
+        this.createNewBoard();
+        resolve();
+      }).then(() => {
+        this.runGame();
+      });
+    },
+
+    createNewBoard() {
       var gameBoard = this.$refs.gameBoard;
       for (let x = 0; x < this.sizeX; x++) {
         for (let y = 0; y < this.sizeY; y++) {
@@ -29,8 +38,6 @@ export default {
           gameBoard.appendChild(node);
         }
       }
-      console.log(gameBoard);
-      this.chageRamdomCell();
     },
 
     getRadomCell(horizontal, vertical) {
@@ -39,14 +46,22 @@ export default {
       return { x, y };
     },
     chageRamdomCell() {
-      let position = this.getRadomCell(this.sizeX -1, this.sizeY -1);
-      console.log(position);
-      let cell = document.getElementById(position.x + "-" + position.y);
+      let position = this.getRadomCell(this.sizeX - 1, this.sizeY - 1);
+      // console.log(position);
+      var cell = document.getElementById(position.x + "-" + position.y);
       cell.classList.add("activeCell");
-      console.log(cell);
+
+      setTimeout(function() {
+        cell.classList.remove("activeCell");
+      }, 1000);
     },
 
-    runGame() {}
+    runGame() {
+      let me= this;
+      setInterval(function() {
+        me.chageRamdomCell();
+      }, 1200);
+    }
   }
 };
 </script>
@@ -71,7 +86,10 @@ export default {
   display: -webkit-box;
   background: gray;
 }
-.activeCell{
-  background: green;
+.activeCell {
+  background-image: url("../assets/images/one-punch-man.png");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
 }
 </style>
