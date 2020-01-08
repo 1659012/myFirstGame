@@ -20,7 +20,7 @@ export default {
   watch: {},
   methods: {
     initialize() {
-      new Promise((resolve) => {
+      new Promise(resolve => {
         this.createNewBoard();
         resolve();
       }).then(() => {
@@ -51,13 +51,17 @@ export default {
       var cell = document.getElementById(position.x + "-" + position.y);
       cell.classList.add("activeCell");
 
+      cell.addEventListener("click", function() {
+        document.getElementById("demo").innerHTML = "Hello World";
+      });
+      
       setTimeout(function() {
         cell.classList.remove("activeCell");
       }, 1000);
     },
 
     runGame() {
-      let me= this;
+      let me = this;
       setInterval(function() {
         me.chageRamdomCell();
       }, 1200);
